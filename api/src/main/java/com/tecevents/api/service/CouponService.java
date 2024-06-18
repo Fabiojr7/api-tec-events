@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -32,5 +33,9 @@ public class CouponService {
         couponRepository.save(newCoupon);
 
         return newCoupon;
+    }
+
+    public List<Coupon> consultCoupons(UUID eventId, Date currentDate) {
+        return couponRepository.findByEventIdAndValidAfter(eventId, currentDate);
     }
 }

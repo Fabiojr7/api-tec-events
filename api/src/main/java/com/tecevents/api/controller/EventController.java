@@ -1,6 +1,7 @@
 package com.tecevents.api.controller;
 
 import com.tecevents.api.domain.event.Event;
+import com.tecevents.api.domain.event.EventDetailsDTO;
 import com.tecevents.api.domain.event.EventRequestDTO;
 import com.tecevents.api.domain.event.EventResponseDTO;
 import com.tecevents.api.service.EventService;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
@@ -32,6 +34,12 @@ public class EventController {
         EventRequestDTO eventRequestDTO = new EventRequestDTO(title, description, date, city, state, remote, eventUrl, image);
         Event newEvent = this.eventService.createEvent(eventRequestDTO);
         return ResponseEntity.ok(newEvent);
+    }
+
+    @GetMapping("/{eventId}")
+    public ResponseEntity<EventDetailsDTO> getEventDetails(@PathVariable UUID eventId){
+        EventDetailsDTO eventDetails = eventService.getEventDetails(eventId);
+        return ResponseEntity.ok(eventDetails);
     }
 
     @GetMapping
